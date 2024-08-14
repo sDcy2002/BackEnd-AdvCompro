@@ -51,10 +51,10 @@ app.get('/books/:id', (req, res) => {
 app.post('/books', (req, res) => {
     const book = req.body;
     console.log("Hello");
-    db.run('INSERT INTO books (title, author) VALUE (?, ?)', book.title, book.author, function(err) {
+    db.run('INSERT INTO books (title, author) VALUES (?, ?)', book.title, book.author, function(err) {
         if (err) {
             console.log("Hello2");
-            res.status(500).send(err);
+            res.status(500).send({ error: 'Failed to create the book' });
         } else {
             book.id = this.lastID;
             res.send(book);
